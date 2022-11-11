@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item>
+      <ion-buttons> <ion-back-button></ion-back-button> </ion-buttons>
+      <ion-title>Contato</ion-title>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--Inicio - informações de um contato salvo-->
+  <ion-item *ngIf=!modoEdicao>
+    <ion-label>Nome:</ion-label>
+    <p>{{detalhesContato.nome}}</p>
+  </ion-item>
+  <ion-item *ngIf='!modoEdicao'>
+    <ion-label>Sobrenome:</ion-label>
+    <p>{{detalhesContato.sobrenome}}</p>
+  </ion-item>
+  <ion-item *ngIf=!modoEdicao>
+    <ion-label>Tel:</ion-label>
+    <p>{{detalhesContato.telefone}}</p>
+  </ion-item>
+  <ion-item *ngIf=!modoEdicao>
+    <ion-label>Tipo:</ion-label>
+    <p>{{detalhesContato.tipo}}</p>
+  </ion-item>
+  <ion-item *ngIf='!modoEdicao'>
+    <ion-label>Email:</ion-label>
+    <p>{{detalhesContato.email}}</p>
+  </ion-item>
+  <ion-button *ngIf=!modoEdicao shape="round" (click)="IniciarEdicao()">Editar</ion-button>
+  <ion-button *ngIf=!modoEdicao shape="round" color="danger" (click)="presentAlert()">Excluir</ion-button>
+<!-- Fim -->
+
+<!--Inicio do formulário para edição de contato ou inserção de contato formulário com validação-->
+  <form #form="ngForm" [formGroup]="contatoForm" *ngIf=modoEdicao (ngSubmit)="EncerrarEdicao()">
+    <ion-item>
+      <ion-label position="floating">Nome:</ion-label>
+      <ion-input [(ngModel)]="detalhesContato.nome" formControlName="nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Sobrenome:</ion-label>
+      <ion-input [(ngModel)]="detalhesContato.sobrenome" formControlName="sobrenome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Tel:</ion-label>
+      <ion-input [(ngModel)]="detalhesContato.telefone" formControlName="telefone" simpleMask="(99)9-9999-9999"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Tipo:</ion-label>
+      <!-- caixa de seleção do tipo de contato -->
+      <ion-select interface="" [(ngModel)]="detalhesContato.tipo" formControlName="tipo">
+        <ion-select-option value="celular">Celular</ion-select-option>
+        <ion-select-option value="casa">Casa</ion-select-option>
+        <ion-select-option value="trabalho">Trabalho</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email:</ion-label>
+      <ion-input [(ngModel)]="detalhesContato.email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-button type="submit">Gravar</ion-button>  
+  </form>
+  <!-- Fim -->
+
+</ion-content>
